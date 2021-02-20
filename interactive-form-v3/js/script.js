@@ -67,15 +67,10 @@ checkboxesFieldSet.addEventListener('change', e => {
     totalDollars.innerHTML = `Total: $${totalCost}`;
         
 });
-let hint = document.querySelector('#activities-hint');
+const hint = document.querySelector('#activities-hint');
 console.log(hint);
-/*if (totalCost != 0){
-    hint.parentElement.className = 'valid';
-    hint.parentElement.lastElementChild.hidden = true;
-}else {
-    hint.parentElement.className = 'not-valid::after';
-    hint.parentElement.lastElementChild.hidden = false;
-}*/
+hint.hidden = false;
+
 const paymentMethod = document.getElementById('payment');
 const creditCard = document.getElementById('credit-card');
 const payPal = document.getElementById('paypal');
@@ -107,69 +102,79 @@ const zipCode = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 const form = document.forms;
     
-if(totalCost != 0){
-    console.log('test');
-    form[0].addEventListener('click', e => {
-        e.preventDefault();
-        const typedName = document.getElementById('name');
-        const typedNameValue = typedName.value;
-        const nameRegEx = /^[a-z ,.'-]+$/i  //regex borrowed from stack overflow: https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-nam
-        if (nameRegEx.test(typedNameValue)){      
-            typedName.parentElement.className = 'valid';
-            typedName.parentElement.lastElementChild.hidden = true;
-        }
-        else {
-            typedName.parentElement.className = 'not-valid';
-            typedName.parentElement.lastElementChild.className = 'not-valid';
-            typedName.parentElement.lastElementChild.hidden = false;
-        }
-        const typedEmail = document.getElementById('email');
-        const typedEmailVal = typedEmail.value;
-        const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // regex borrowed from stack overflow: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-        if (emailRegEx.test(typedEmailVal)){
-            typedEmail.parentElement.className = 'valid';
-            typedEmail.parentElement.lastElementChild.hidden = true;
-        }
-        else{
-            typedEmail.parentElement.className = 'not-valid';
-            typedEmail.parentElement.lastElementChild.className = 'not-valid';
-            typedEmail.parentElement.lastElementChild.hidden = false;
-        }
-        const cardNumVal = cardNumber.value;
-        const ccRegEx = /(?:(\d)[ -]?){12,15}(\d)/ // regex (13-16 digits) borrowed from stack overflow: https://stackoverflow.com/questions/57290428/create-credit-card-regex
-        if (ccRegEx.test(cardNumVal)){
-            cardNumber.parentElement.className = 'valid';
-            cardNumber.parentElement.lastElementChild.hidden = true;
-        }
-        else{
-            cardNumber.parentElement.className = 'not-valid';
-            cardNumber.parentElement.lastElementChild.className = 'not-valid';
-            cardNumber.parentElement.lastElementChild.hidden = false;
-        }
-        const zipCodeVal = zipCode.value;
-        const zipRegEx = /\d{5}/i
-        if (zipRegEx.test(zipCodeVal)){
-            zipCode.parentElement.className = 'valid';
-            zipCode.parentElement.lastElementChild.hidden = true;
-        }
-        else{
-            zipCode.parentElement.className = 'not-valid';
-            zipCode.parentElement.lastElementChild.className = 'not-valid';
-            zipCode.parentElement.lastElementChild.hidden = false;
-        }
-        const cvvVal = cvv.value;
-        const cvvRegEx = /\d{3}/i
-        if (cvvRegEx.test(cvvVal)){
-            cvv.parentElement.className = 'valid';
-            cvv.parentElement.lastElementChild.hidden = true;
-        }
-        else{
-            cvv.parentElement.className = 'not-valid';
-            cvv.parentElement.lastElementChild.className = 'not-valid';
-            cvv.parentElement.lastElementChild.hidden = false;
-        }
-    });
+
+form[0].addEventListener('click', e => {
+const typedName = document.getElementById('name');
+const typedNameValue = typedName.value;
+const nameRegEx = /^[a-z ,.'-]+$/i  //regex borrowed from stack overflow: https://stackoverflow.com/questions/2385701/regular-expression-for-first-and-last-nam
+if(typedNameValue != ''){
+    if (nameRegEx.test(typedNameValue)){      
+        typedName.parentElement.className = 'valid';
+        typedName.parentElement.lastElementChild.hidden = true;
+    }
+    else {
+        typedName.parentElement.className = 'not-valid';
+        typedName.parentElement.lastElementChild.className = 'not-valid';
+        typedName.parentElement.lastElementChild.hidden = false;
+    }
 }
+const typedEmail = document.getElementById('email');
+const typedEmailVal = typedEmail.value;
+const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // regex borrowed from stack overflow: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+if(typedEmailVal != ''){
+    if (emailRegEx.test(typedEmailVal)){
+        typedEmail.parentElement.className = 'valid';
+        typedEmail.parentElement.lastElementChild.hidden = true;
+    }
+    else{
+        typedEmail.parentElement.className = 'not-valid';
+        typedEmail.parentElement.lastElementChild.className = 'not-valid';
+        typedEmail.parentElement.lastElementChild.hidden = false;
+    }
+}
+const cardNumVal = cardNumber.value;
+const ccRegEx = /(?:(\d)[ -]?){12,15}(\d)/ // regex (13-16 digits) borrowed from stack overflow: https://stackoverflow.com/questions/57290428/create-credit-card-regex
+//if(cardNumVAL != 0){
+    if (ccRegEx.test(cardNumVal)){
+        cardNumber.parentElement.className = 'valid';
+        cardNumber.parentElement.lastElementChild.hidden = true;
+    }
+    else{
+        cardNumber.parentElement.className = 'not-valid';
+        cardNumber.parentElement.lastElementChild.className = 'not-valid';
+        cardNumber.parentElement.lastElementChild.hidden = false;
+    }
+//}
+
+const zipCodeVal = zipCode.value;
+const zipRegEx = /\d{5}/i
+if(zipCodeVal != 0){
+    if (zipRegEx.test(zipCodeVal)){
+        zipCode.parentElement.className = 'valid';
+        zipCode.parentElement.lastElementChild.hidden = true;
+    }
+    else{
+        zipCode.parentElement.className = 'not-valid';
+        zipCode.parentElement.lastElementChild.className = 'not-valid';
+        zipCode.parentElement.lastElementChild.hidden = false;
+    }
+}
+const cvvVal = cvv.value;
+const cvvRegEx = /\d{3}/i
+if(cvvVal != 0){
+    if (cvvRegEx.test(cvvVal)){
+        cvv.parentElement.className = 'valid';
+        cvv.parentElement.lastElementChild.hidden = true;
+    }
+    else{
+        cvv.parentElement.className = 'not-valid';
+        cvv.parentElement.lastElementChild.className = 'not-valid';
+        cvv.parentElement.lastElementChild.hidden = false;
+    }
+}
+
+});
+
 
 
 
