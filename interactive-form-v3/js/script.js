@@ -65,6 +65,23 @@ checkboxesFieldSet.addEventListener('change', e => {
             totalCost -= dataCost;
         }
     totalDollars.innerHTML = `Total: $${totalCost}`;
+    // code below borrowed (variables modified by me) from TimothyHBourne https://github.com/timothyhbourne/The_Interactive_Form/blob/main/js/script.js
+    const dataDayTime = e.target.getAttribute('data-day-and-time');
+    const eventName = e.target.getAttribute('name');
+    for (let i = 0; i < checkboxes.length; i++) {
+        const selectedTime = checkboxes[i].getAttribute('data-day-and-time');
+        const selectedName = checkboxes[i].getAttribute('name');
+        if (dataDayTime === selectedTime && eventName !== selectedName) {
+        if (e.target.checked) {
+            checkboxes[i].parentElement.classList.add('disabled');
+            checkboxes[i].disabled = true;
+        } else {
+            checkboxes[i].disabled = false;
+            checkboxes[i].parentElement.classList.remove('disabled');
+        }
+        }
+    }
+    // End Borrowed Code from TimothyHBourne
         
 });
 const hint = document.querySelector('#activities-hint');
@@ -134,7 +151,7 @@ if(typedEmailVal != ''){
 }
 const cardNumVal = cardNumber.value;
 const ccRegEx = /(?:(\d)[ -]?){12,15}(\d)/ // regex (13-16 digits) borrowed from stack overflow: https://stackoverflow.com/questions/57290428/create-credit-card-regex
-//if(cardNumVAL != 0){
+if(cardNumVal != 0){
     if (ccRegEx.test(cardNumVal)){
         cardNumber.parentElement.className = 'valid';
         cardNumber.parentElement.lastElementChild.hidden = true;
@@ -144,7 +161,7 @@ const ccRegEx = /(?:(\d)[ -]?){12,15}(\d)/ // regex (13-16 digits) borrowed from
         cardNumber.parentElement.lastElementChild.className = 'not-valid';
         cardNumber.parentElement.lastElementChild.hidden = false;
     }
-//}
+}
 
 const zipCodeVal = zipCode.value;
 const zipRegEx = /\d{5}/i
