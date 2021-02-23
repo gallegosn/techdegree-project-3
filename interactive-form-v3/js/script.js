@@ -105,7 +105,7 @@ const bitcoin = document.getElementById('bitcoin');
 
 payPal.hidden = true;
 bitcoin.hidden = true;
-creditCard.hidden = true;
+creditCard.hidden = false;
 let cc = false;
 let bc = false;
 let pp = false;
@@ -190,7 +190,8 @@ form.addEventListener('submit', (e) => {
         e.preventDefault();
     }
     const cardNumVal = cardNumber.value;
-    const ccRegEx = /(?:(\d)[ -]?){12,15}(\d)/ // regex (13-16 digits) borrowed from stack overflow: https://stackoverflow.com/questions/57290428/create-credit-card-regex
+    const ccRegEx = /^\d{13,16}$/; // regex updated based on project feedback
+    // /(?:(\d)[ -]?){12,15}(\d)/ // regex (13-16 digits) borrowed from stack overflow: https://stackoverflow.com/questions/57290428/create-credit-card-regex
     if(cardNumVal != 0 || cc == true){
         if (ccRegEx.test(cardNumVal)){
             cardNumber.parentElement.className = 'valid';
