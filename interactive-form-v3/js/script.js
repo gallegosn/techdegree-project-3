@@ -65,19 +65,20 @@ checkboxesFieldSet.addEventListener('change', e => {
             totalCost -= dataCost;
         }
     totalDollars.innerHTML = `Total: $${totalCost}`;
-    // code below borrowed (variables modified by me) from TimothyHBourne https://github.com/timothyhbourne/The_Interactive_Form/blob/main/js/script.js
+    // Code Borrowed from Henry Blandon Treehouse Student
     //Activities focus and blur indicator
-    let checkedActivities = 0;
     for (let i = 0; i < checkboxes.length; i++) {
-        let label = checkboxes[i].parentNode;
-        if (checkboxes[i].checked) {
-        checkedActivities += 1; 
-        label.classList.add('focus');
-        } else {
-        label.classList.remove('focus');
-        checkedActivities -= 1;
-        }
+      checkboxes[i].addEventListener('focus', (e) => {
+          checkboxes[i].parentElement.classList.add('focus');
+      });
+      checkboxes[i].addEventListener('blur', (e) => {
+          const active = document.querySelector('.focus');
+          if(active){
+              active.classList.remove('focus');
+          }
+      })
     }
+    // code below borrowed (variables modified by me) from TimothyHBourne https://github.com/timothyhbourne/The_Interactive_Form/blob/main/js/script.js
     // Code prevents activities from being scheduled at the same time.
     const dataDayTime = e.target.getAttribute('data-day-and-time');
     const eventName = e.target.getAttribute('name');
@@ -93,9 +94,7 @@ checkboxesFieldSet.addEventListener('change', e => {
             checkboxes[i].parentElement.classList.remove('disabled');
         }
         }
-    }
-    // End Borrowed Code from TimothyHBourne
-        
+    }        
 });
 
 const paymentMethod = document.getElementById('payment');
