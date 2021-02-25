@@ -1,7 +1,7 @@
 
-const name = document.getElementById('name');
-name.focus();
-name.className = 'input.error';
+const fullName = document.getElementById('name');
+fullName.focus();
+fullName.className = 'input.error';
 document.getElementById('other-job-role').hidden = true;
 
 const jobRoles = document.getElementById('title');
@@ -25,13 +25,11 @@ function emailValidator(){
             typedEmail.parentElement.className = 'not-valid';
             typedEmail.parentElement.lastElementChild.className = 'not-valid';
             typedEmail.parentElement.lastElementChild.hidden = false;
-            e.preventDefault();
         }
     }else{
         typedEmail.parentElement.className = 'not-valid';
         typedEmail.parentElement.lastElementChild.className = 'not-valid';
         typedEmail.parentElement.lastElementChild.hidden = false;
-        e.preventDefault();
     }
 }
 
