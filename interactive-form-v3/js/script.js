@@ -7,6 +7,34 @@ document.getElementById('other-job-role').hidden = true;
 const jobRoles = document.getElementById('title');
 const otherJobRole = document.getElementById('other-job-role');
 
+const typedEmail = document.getElementById('email');
+
+//real time email validation
+typedEmail.addEventListener('keyup', emailValidator);
+
+function emailValidator(){
+    
+    const typedEmailVal = typedEmail.value;
+    const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // regex borrowed from stack overflow: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    if(typedEmailVal != ''){
+        if (emailRegEx.test(typedEmailVal)){
+            typedEmail.parentElement.className = 'valid';
+            typedEmail.parentElement.lastElementChild.hidden = true;
+        }
+        else{
+            typedEmail.parentElement.className = 'not-valid';
+            typedEmail.parentElement.lastElementChild.className = 'not-valid';
+            typedEmail.parentElement.lastElementChild.hidden = false;
+            e.preventDefault();
+        }
+    }else{
+        typedEmail.parentElement.className = 'not-valid';
+        typedEmail.parentElement.lastElementChild.className = 'not-valid';
+        typedEmail.parentElement.lastElementChild.hidden = false;
+        e.preventDefault();
+    }
+}
+
 jobRoles.addEventListener('change', (e) => {
     if(jobRoles.value == 'other'){
         otherJobRole.hidden = false;
@@ -168,26 +196,7 @@ form.addEventListener('submit', (e) => {
         typedName.parentElement.lastElementChild.hidden = false;
         e.preventDefault();
     }
-    const typedEmail = document.getElementById('email');
-    const typedEmailVal = typedEmail.value;
-    const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // regex borrowed from stack overflow: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
-    if(typedEmailVal != ''){
-        if (emailRegEx.test(typedEmailVal)){
-            typedEmail.parentElement.className = 'valid';
-            typedEmail.parentElement.lastElementChild.hidden = true;
-        }
-        else{
-            typedEmail.parentElement.className = 'not-valid';
-            typedEmail.parentElement.lastElementChild.className = 'not-valid';
-            typedEmail.parentElement.lastElementChild.hidden = false;
-            e.preventDefault();
-        }
-    }else{
-        typedEmail.parentElement.className = 'not-valid';
-        typedEmail.parentElement.lastElementChild.className = 'not-valid';
-        typedEmail.parentElement.lastElementChild.hidden = false;
-        e.preventDefault();
-    }
+    
     const cardNumVal = cardNumber.value;
     const ccRegEx = /^\d{13,16}$/; // regex updated based on project feedback
     // /(?:(\d)[ -]?){12,15}(\d)/ // regex (13-16 digits) borrowed from stack overflow: https://stackoverflow.com/questions/57290428/create-credit-card-regex
